@@ -24,6 +24,8 @@ namespace calc
 
         }
 
+
+
         private void NumberButton_Click(object sender, EventArgs e)
         {
             var NumberButton = (Button)sender;
@@ -33,6 +35,15 @@ namespace calc
 
         private void MainScreen_TextChanged(object sender, EventArgs e)
         {
+        }
+
+        private void UtilityButtonBackSpace_Click(object sender, EventArgs e)
+        {
+            if (UserInput.Length > 0)
+            {
+                UserInput = UserInput.Remove(UserInput.Length - 1);
+                MainScreen.Text = UserInput;
+            }
         }
     }
 }
