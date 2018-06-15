@@ -35,6 +35,7 @@ namespace calc
 
         private void MainScreen_TextChanged(object sender, EventArgs e)
         {
+            
         }
 
         private void UtilityButtonBackSpace_Click(object sender, EventArgs e)

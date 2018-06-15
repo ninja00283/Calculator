@@ -13,7 +13,8 @@ C:\Users\jan\Source\Repos\Calculator\calc\calc\obj\Debug\calc.exe
 C:\Users\jan\Source\Repos\Calculator\calc\calc\obj\Debug\calc.pdb
 C:\Users\jan\Source\Repos\Calculator\calc\calc\bin\Debug\calc.exe
 C:\Users\jan\Source\Repos\Calculator\calc\calc\bin\Debug\calc.pdb
-C:\Users\jan\Source\Repos\Calculator\calc\calc\obj\Debug\calc.csprojResolveAssemblyReference.cache
 C:\Users\jan\Source\Repos\Calculator\calc\calc\obj\Debug\calc.Form1.resources
 C:\Users\jan\Source\Repos\Calculator\calc\calc\obj\Debug\calc.Properties.Resources.resources
 C:\Users\jan\Source\Repos\Calculator\calc\calc\obj\Debug\calc.csproj.GenerateResource.Cache
+C:\Users\jan\source\repos\Calculator\calc\calc\obj\Debug\calc.csprojAssemblyReference.cache
+C:\Users\jan\source\repos\Calculator\calc\calc\obj\Debug\calc.csproj.CoreCompileInputs.cache
