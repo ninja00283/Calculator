@@ -94,7 +94,7 @@
             this.flowLayoutPanel1.Controls.Add(this.button27);
             this.flowLayoutPanel1.Controls.Add(this.button9);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(14, 122);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(256, 325);
             this.flowLayoutPanel1.TabIndex = 0;
@@ -398,6 +398,7 @@
             this.OperatorButtonEquals.TabIndex = 24;
             this.OperatorButtonEquals.Text = "=";
             this.OperatorButtonEquals.UseVisualStyleBackColor = false;
+            this.OperatorButtonEquals.Click += new System.EventHandler(this.NumberButton_Click);
             // 
             // button25
             // 
@@ -484,7 +485,7 @@
             this.Controls.Add(this.MainScreen);
             this.Controls.Add(this.flowLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.ShowIcon = false;
