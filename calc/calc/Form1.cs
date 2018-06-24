@@ -42,29 +42,9 @@ namespace calc
 
         private void MainScreen_TextChanged(object sender, EventArgs e)
         {
-            /*
-            char[] Operators = { '*', '/', '+', '-' };
-            var SecondaryInput = "";
-            while (UserInput.Contains("+") || UserInput.Contains("-") || UserInput.Contains("*") || UserInput.Contains("/"))
-            {
-                var OperatorPosition = UserInput.IndexOfAny(Operators);
-                UserInput.Replace(UserInput[OperatorPosition].ToString(), UserInput[OperatorPosition].ToString() + "S");
-                string[] split = UserInput.Split('S');
-                SecondaryInput += split[0];
-
-                if (split.GetLength(0) > 1)
-                {
-                    UserInput = split[1];
-                }
-                else
-                {
-                    UserInputObsolete = true;
-                    break;
-                }
-            }
-            */
+            Console.WriteLine(UserInput);
             char[] Operators = { '*', '/', '+', '-', '=' };
-            if (UserInput.LastIndexOfAny(Operators) == 1)
+            if (UserInput.LastIndexOfAny(Operators) == UserInput.Length-1)
             {
                 SecondaryInput += UserInput;
                 UserInputObsolete = true;
@@ -84,12 +64,15 @@ namespace calc
         //()C#-3
         private void SecondaryScreen_TextChanged(object sender, EventArgs e)
         {
+            if (SecondaryScreen.Text[SecondaryScreen.Text.Length-1] == '=') {
+                SecondaryScreen.Text.Remove(SecondaryScreen.Text.Length - 1,1);
+            }
+
             char[] Operators = { '*', '/', '+', '-' };
             char[] OperatorsPlus = { '*', '/', '+', '-', '(', ')', '=' };
+            Regex regex = new Regex(@"^[0-9]$");
             List<string> Equation = new List<string>();
-
             var SecondaryScreenText = SecondaryScreen.Text;
-            Console.WriteLine(SecondaryScreenText);
             var SplitCount = 0;
             SplitCount += SecondaryScreenText.Length - SecondaryScreenText.Replace("*", "").Length;
             SplitCount += SecondaryScreenText.Length - SecondaryScreenText.Replace("+", "").Length;
@@ -100,22 +83,23 @@ namespace calc
             var LastWasNumber = 0;
             for (int i = 0; i < SecondaryScreenText.Length; i++)
             {
-                Console.WriteLine("ssl = " + SecondaryScreenText.Length);
-                if (Regex.IsMatch(SecondaryScreenText[i].ToString(), @"^[0-9]$"))
+                if (regex.IsMatch(SecondaryScreenText[i].ToString()))
                 {
+                    Console.WriteLine("poppop" + SplitCount);
+
+                    SplitCount += Math.Abs(LastWasNumber - 1);
                     LastWasNumber = 1;
-                    SplitCount += LastWasNumber;
-                    Console.WriteLine("pop" + SplitCount);
                 }
                 else {
                     LastWasNumber = 0;
                 }
+                
             }
-            Console.WriteLine(SplitCount);
             for (int i = 0; i < SplitCount; i++)
             {
-                if (Regex.IsMatch(SecondaryScreenText, @"^[0-9]+$"))
+                if (regex.IsMatch(SecondaryScreenText[0].ToString()))
                 {
+                    Console.WriteLine("pop");
                     Equation.Add(SecondaryScreenText.Substring(0, SecondaryScreenText.IndexOfAny(OperatorsPlus)));
                     SecondaryScreenText = SecondaryScreenText.Remove(0, SecondaryScreenText.Substring(0, SecondaryScreenText.IndexOfAny(OperatorsPlus)).Length);
                 }
@@ -130,7 +114,8 @@ namespace calc
             }
             if (Equation.Count > 2)
             {
-                while (Equation.Count > 1)
+                Console.WriteLine("lio:"+ Equation.ToString().LastIndexOfAny(Operators) + "[]" + String.Join("", Equation));
+                while (Equation.Count > 1 && String.Join("",Equation).LastIndexOfAny(Operators) != String.Join("", Equation).ToString().Length-1)
                 {
                     for (int i = 0; i < Equation.Count; i++)
                     {
@@ -146,10 +131,7 @@ namespace calc
                                 StartIndex = Equation.FindIndex(x => x == "(");
                             }
                         }
-                        else
-                        {
-                            StartIndex = -1;
-                        }
+
                         var Var0 = Equation[StartIndex + 1];
                         var Var1 = Equation[StartIndex + 2];
                         var Var2 = Equation[StartIndex + 3];

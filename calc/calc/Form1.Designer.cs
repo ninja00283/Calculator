@@ -295,8 +295,9 @@
             this.button16.Name = "button16";
             this.button16.Size = new System.Drawing.Size(64, 46);
             this.button16.TabIndex = 16;
-            this.button16.Text = "7";
+            this.button16.Text = "-";
             this.button16.UseVisualStyleBackColor = false;
+            this.button16.Click += new System.EventHandler(this.NumberButton_Click);
             // 
             // NumberButton1
             // 
@@ -409,8 +410,9 @@
             this.button25.Name = "button25";
             this.button25.Size = new System.Drawing.Size(64, 46);
             this.button25.TabIndex = 25;
-            this.button25.Text = "7";
+            this.button25.Text = "(";
             this.button25.UseVisualStyleBackColor = false;
+            this.button25.Click += new System.EventHandler(this.NumberButton_Click);
             // 
             // button26
             // 
@@ -421,8 +423,9 @@
             this.button26.Name = "button26";
             this.button26.Size = new System.Drawing.Size(64, 46);
             this.button26.TabIndex = 26;
-            this.button26.Text = "7";
+            this.button26.Text = ")";
             this.button26.UseVisualStyleBackColor = false;
+            this.button26.Click += new System.EventHandler(this.NumberButton_Click);
             // 
             // button27
             // 
