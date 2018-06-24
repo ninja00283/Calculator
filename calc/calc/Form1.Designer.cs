@@ -193,8 +193,9 @@
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(64, 46);
             this.button8.TabIndex = 8;
-            this.button8.Text = "7";
+            this.button8.Text = "/";
             this.button8.UseVisualStyleBackColor = false;
+            this.button8.Click += new System.EventHandler(this.NumberButton_Click);
             // 
             // NumberButton7
             // 
@@ -244,8 +245,9 @@
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(64, 46);
             this.button12.TabIndex = 12;
-            this.button12.Text = "7";
+            this.button12.Text = "*";
             this.button12.UseVisualStyleBackColor = false;
+            this.button12.Click += new System.EventHandler(this.NumberButton_Click);
             // 
             // NumberButton4
             // 

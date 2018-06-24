@@ -42,7 +42,6 @@ namespace calc
 
         private void MainScreen_TextChanged(object sender, EventArgs e)
         {
-            Console.WriteLine(UserInput);
             char[] Operators = { '*', '/', '+', '-', '=' };
             if (UserInput.LastIndexOfAny(Operators) == UserInput.Length-1)
             {
@@ -85,8 +84,6 @@ namespace calc
             {
                 if (regex.IsMatch(SecondaryScreenText[i].ToString()))
                 {
-                    Console.WriteLine("poppop" + SplitCount);
-
                     SplitCount += Math.Abs(LastWasNumber - 1);
                     LastWasNumber = 1;
                 }
@@ -99,7 +96,6 @@ namespace calc
             {
                 if (regex.IsMatch(SecondaryScreenText[0].ToString()))
                 {
-                    Console.WriteLine("pop");
                     Equation.Add(SecondaryScreenText.Substring(0, SecondaryScreenText.IndexOfAny(OperatorsPlus)));
                     SecondaryScreenText = SecondaryScreenText.Remove(0, SecondaryScreenText.Substring(0, SecondaryScreenText.IndexOfAny(OperatorsPlus)).Length);
                 }
@@ -108,13 +104,9 @@ namespace calc
                     SecondaryScreenText = SecondaryScreenText.Remove(0, 1);
                 }
             }
-            for (int i = 0; i < Equation.Count; i++)
-            {
-                Console.WriteLine(Equation[i]);
-            }
+            
             if (Equation.Count > 2)
             {
-                Console.WriteLine("lio:"+ Equation.ToString().LastIndexOfAny(Operators) + "[]" + String.Join("", Equation));
                 while (Equation.Count > 1 && String.Join("",Equation).LastIndexOfAny(Operators) != String.Join("", Equation).ToString().Length-1)
                 {
                     for (int i = 0; i < Equation.Count; i++)
@@ -124,14 +116,39 @@ namespace calc
                         {
                             while (true)
                             {
-                                if (StartIndex == Equation.FindIndex(x => x == "("))
+                                if (StartIndex == Equation.IndexOf("("))
                                 {
                                     break;
                                 }
-                                StartIndex = Equation.FindIndex(x => x == "(");
+                                StartIndex = Equation.IndexOf("(");
                             }
                         }
 
+                        if (Equation.Exists(x => x == "*") || Equation.Exists(x => x == "/"))
+                        {
+
+                            var StartIndex1 = 0;
+                            var StartIndex2 = 0;
+
+                            while (true && Equation.Exists(x => x == "*"))
+                            {
+                                if (StartIndex1 == Equation.IndexOf("*", Math.Max(StartIndex, 0)))
+                                {
+                                    break;
+                                }
+                                StartIndex1 = Equation.IndexOf("*", Math.Max(StartIndex, 0));
+                            }
+
+                            while (true && Equation.Exists(x => x == "/"))
+                            {
+                                if (StartIndex2 == Equation.IndexOf("/", Math.Max(StartIndex, 0)))
+                                {
+                                    break;
+                                }
+                                StartIndex2 = Equation.IndexOf("/", Math.Max(StartIndex, 0));
+                            }
+                            StartIndex = Math.Max(Math.Max(StartIndex1 - 2, StartIndex2 - 2),0);
+                        }
                         var Var0 = Equation[StartIndex + 1];
                         var Var1 = Equation[StartIndex + 2];
                         var Var2 = Equation[StartIndex + 3];
@@ -139,6 +156,16 @@ namespace calc
                         if (Var1 == "+")
                         {
                             output = Int32.Parse(Var0) + Int32.Parse(Var2);
+                            Console.WriteLine(Var0 + "+" + Var2 + "=" + output);
+                        }
+                        else if (Var1 == "*")
+                        {
+                            Console.WriteLine(Var0 + "*" + Var2 + "=" + output);
+                            output = Int32.Parse(Var0) * Int32.Parse(Var2);
+                        }
+                        else if (Var1 == "/")
+                        {
+                            output = Int32.Parse(Var0) / Int32.Parse(Var2);
                         }
                         else if (Var1 == "-")
                         {
@@ -151,20 +178,21 @@ namespace calc
                             Equation.RemoveAt(StartIndex + 2);
                             Equation.RemoveAt(StartIndex + 1);
                             Equation.RemoveAt(StartIndex);
-                        }
+                         }
                         else
                         {
+                            Console.WriteLine(Equation[StartIndex + 3] + "," + Equation[StartIndex + 2] + "," + Equation[StartIndex + 1] + ":removed");
                             Equation.RemoveAt(StartIndex + 3);
                             Equation.RemoveAt(StartIndex + 2);
                             Equation.RemoveAt(StartIndex + 1);
                         }
-                        Equation.Insert(0, output.ToString());
+                        Equation.Insert(Math.Max(StartIndex+1,0), output.ToString());
+                        
                     }
                 }
             }
             if (Equation.Count > 0) {
                 MainScreen.Text = Equation[0];
-                Console.WriteLine("Equation= "+ Equation[0]);
             }
         }
     }
