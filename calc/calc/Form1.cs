@@ -126,50 +126,68 @@ namespace calc
 
                         if (Equation.Exists(x => x == "*") || Equation.Exists(x => x == "/"))
                         {
-
-                            var StartIndex1 = 0;
-                            var StartIndex2 = 0;
-
-                            while (true && Equation.Exists(x => x == "*"))
+                            if (Equation.IndexOf("*", StartIndex + 1) < Equation.IndexOf(")", StartIndex + 1) || Equation.IndexOf("/", StartIndex + 1) < Equation.IndexOf(")", StartIndex + 1))
                             {
-                                if (StartIndex1 == Equation.IndexOf("*", Math.Max(StartIndex, 0)))
+                                var EndIndex = 0;
+                                if (Equation.Exists(x => x == ")"))
                                 {
-                                    break;
+                                    EndIndex = Equation.IndexOf("*", StartIndex);
                                 }
-                                StartIndex1 = Equation.IndexOf("*", Math.Max(StartIndex, 0));
-                            }
+                                else
+                                {
+                                    EndIndex = Equation.Count();
+                                }
 
-                            while (true && Equation.Exists(x => x == "/"))
-                            {
-                                if (StartIndex2 == Equation.IndexOf("/", Math.Max(StartIndex, 0)))
+                                var StartIndex1 = 0;
+                                var StartIndex2 = 0;
+
+                                while (true && Equation.Exists(x => x == "*"))
                                 {
-                                    break;
+                                    if (StartIndex1 == Equation.IndexOf("*", Math.Max(StartIndex, 0)))
+                                    {
+                                        break;
+                                    }
+                                    StartIndex1 = Equation.IndexOf("*", Math.Max(StartIndex, 0));
                                 }
-                                StartIndex2 = Equation.IndexOf("/", Math.Max(StartIndex, 0));
+
+                                while (true && Equation.Exists(x => x == "/"))
+                                {
+                                    if (StartIndex2 == Equation.IndexOf("/", Math.Max(StartIndex, 0)))
+                                    {
+                                        break;
+                                    }
+                                    StartIndex2 = Equation.IndexOf("/", Math.Max(StartIndex, 0));
+                                }
+
+                                StartIndex = Math.Max(Math.Max(StartIndex1 - 1, StartIndex2 - 1), 0) - 1;
                             }
-                            StartIndex = Math.Max(Math.Max(StartIndex1 - 2, StartIndex2 - 2),0);
                         }
+                        Console.WriteLine(StartIndex);
                         var Var0 = Equation[StartIndex + 1];
                         var Var1 = Equation[StartIndex + 2];
                         var Var2 = Equation[StartIndex + 3];
-                        var output = 0;
+                        var output = 0f;
                         if (Var1 == "+")
                         {
-                            output = Int32.Parse(Var0) + Int32.Parse(Var2);
+                            output = float.Parse(Var0) + float.Parse(Var2);
                             Console.WriteLine(Var0 + "+" + Var2 + "=" + output);
                         }
                         else if (Var1 == "*")
                         {
                             Console.WriteLine(Var0 + "*" + Var2 + "=" + output);
-                            output = Int32.Parse(Var0) * Int32.Parse(Var2);
+                            output = float.Parse(Var0) * float.Parse(Var2);
+                            Console.WriteLine(Var0 + "*" + Var2 + "=" + output);
                         }
                         else if (Var1 == "/")
                         {
-                            output = Int32.Parse(Var0) / Int32.Parse(Var2);
+                            Console.WriteLine(Var0 + "/" + Var2 + "=" + output);
+                            output = float.Parse(Var0) / float.Parse(Var2);
+                            Console.WriteLine(Var0 + "/" + Var2 + "=" + output);
                         }
                         else if (Var1 == "-")
                         {
-                            output = Int32.Parse(Var0) - Int32.Parse(Var2);
+                            output = float.Parse(Var0) - float.Parse(Var2);
+                            Console.WriteLine(Var0 + "-" + Var2 + "=" + output);
                         }
                         if (Equation.Exists(x => x == "("))
                         {
