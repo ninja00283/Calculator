@@ -34,7 +34,7 @@ namespace calc
             if (UserInputObsolete) {
                 UserInputObsolete = false;
             }
-            var NumberButton = (Button)sender;
+            Button NumberButton = (Button)sender;
             UserInput += NumberButton.Text;
             
             MainScreen.Text = UserInput;
@@ -71,15 +71,15 @@ namespace calc
             char[] OperatorsPlus = { '*', '/', '+', '-', '(', ')', '=' };
             Regex regex = new Regex(@"^[0-9]$");
             List<string> Equation = new List<string>();
-            var SecondaryScreenText = SecondaryScreen.Text;
-            var SplitCount = 0;
+            string SecondaryScreenText = SecondaryScreen.Text;
+            int SplitCount = 0;
             SplitCount += SecondaryScreenText.Length - SecondaryScreenText.Replace("*", "").Length;
             SplitCount += SecondaryScreenText.Length - SecondaryScreenText.Replace("+", "").Length;
             SplitCount += SecondaryScreenText.Length - SecondaryScreenText.Replace("/", "").Length;
             SplitCount += SecondaryScreenText.Length - SecondaryScreenText.Replace("-", "").Length;
             SplitCount += SecondaryScreenText.Length - SecondaryScreenText.Replace("(", "").Length;
             SplitCount += SecondaryScreenText.Length - SecondaryScreenText.Replace(")", "").Length;
-            var LastWasNumber = 0;
+            int LastWasNumber = 0;
             for (int i = 0; i < SecondaryScreenText.Length; i++)
             {
                 if (regex.IsMatch(SecondaryScreenText[i].ToString()))
