@@ -61,11 +61,42 @@ namespace calc
             }
         }
         //()C#-3
+
+        public float Calculate(String Var0 , String Var1, String Var2)
+        {
+            float output = 0f;
+            switch (Var1)
+            {
+                case "+":
+                    output = float.Parse(Var0) + float.Parse(Var2);
+                    Console.WriteLine(Var0 + "+" + Var2 + "=" + output);
+                    break;
+                case "*":
+                    Console.WriteLine(Var0 + "*" + Var2 + "=");
+                    output = float.Parse(Var0) * float.Parse(Var2);
+                    Console.WriteLine(Var0 + "*" + Var2 + "=" + output);
+                    break;
+                case "/":
+                    Console.WriteLine(Var0 + "/" + Var2 + "=");
+                    output = float.Parse(Var0) / float.Parse(Var2);
+                    Console.WriteLine(Var0 + "/" + Var2 + "=" + output);
+                    break;
+                case "-":
+                    output = float.Parse(Var0) - float.Parse(Var2);
+                    Console.WriteLine(Var0 + "-" + Var2 + "=" + output);
+                    break;
+            }
+            return output;
+        }
+
         private void SecondaryScreen_TextChanged(object sender, EventArgs e)
         {
-            if (SecondaryScreen.Text[SecondaryScreen.Text.Length-1] == '=') {
-                SecondaryScreen.Text.Remove(SecondaryScreen.Text.Length - 1,1);
+            /*
+            if (SecondaryScreen.Text[SecondaryScreen.Text.Length - 1] == '=')
+            {
+                SecondaryScreen.Text.Remove(SecondaryScreen.Text.Length - 1, 1);
             }
+            */
 
             char[] Operators = { '*', '/', '+', '-' };
             char[] OperatorsPlus = { '*', '/', '+', '-', '(', ')', '=' };
@@ -167,30 +198,11 @@ namespace calc
                         var Var1 = Equation[StartIndex + 2];
                         var Var2 = Equation[StartIndex + 3];
                         var output = 0f;
-                        if (Var1 == "+")
-                        {
-                            output = float.Parse(Var0) + float.Parse(Var2);
-                            Console.WriteLine(Var0 + "+" + Var2 + "=" + output);
-                        }
-                        else if (Var1 == "*")
-                        {
-                            Console.WriteLine(Var0 + "*" + Var2 + "=" + output);
-                            output = float.Parse(Var0) * float.Parse(Var2);
-                            Console.WriteLine(Var0 + "*" + Var2 + "=" + output);
-                        }
-                        else if (Var1 == "/")
-                        {
-                            Console.WriteLine(Var0 + "/" + Var2 + "=" + output);
-                            output = float.Parse(Var0) / float.Parse(Var2);
-                            Console.WriteLine(Var0 + "/" + Var2 + "=" + output);
-                        }
-                        else if (Var1 == "-")
-                        {
-                            output = float.Parse(Var0) - float.Parse(Var2);
-                            Console.WriteLine(Var0 + "-" + Var2 + "=" + output);
-                        }
+                        output = Calculate(Var0, Var1, Var2);
+                       
                         if (Equation.Exists(x => x == "("))
                         {
+                            Console.WriteLine(Equation[StartIndex + 4] + "," + Equation[StartIndex + 3] + "," + Equation[StartIndex + 2] + "," + Equation[StartIndex + 1] + "," + Equation[StartIndex + 0] + ":removed");
                             Equation.RemoveAt(StartIndex + 4);
                             Equation.RemoveAt(StartIndex + 3);
                             Equation.RemoveAt(StartIndex + 2);
@@ -204,7 +216,7 @@ namespace calc
                             Equation.RemoveAt(StartIndex + 2);
                             Equation.RemoveAt(StartIndex + 1);
                         }
-                        Equation.Insert(Math.Max(StartIndex+1,0), output.ToString());
+                        Equation.Insert(Math.Min(Math.Max(StartIndex+1,0), Math.Max(Equation.Count - 1, 0)), output.ToString());
                         
                     }
                 }
